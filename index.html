@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gift Market Admin Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <div class="app-content">
+
+      <header class="header">
+        <div class="title-group">
+          <div class="title-row">
+            <div class="title-logo">G</div>
+            <div class="title">
+              <span class="highlight">Gift</span>
+              <span>Market Admin</span>
+            </div>
+          </div>
+          <div class="subtitle">
+            Tovarlar ro‘yxatini boshqarish · MockAPI bilan bog‘langan
+          </div>
+        </div>
+        <div class="header-actions">
+          <div class="pill">
+            <span class="pill-dot"></span>
+            LIVE API
+          </div>
+          <button id="btnNewProduct" class="btn-primary" type="button">
+            + Yangi tovar
+          </button>
+        </div>
+      </header>
+
+      <div class="layout">
+        <section class="card">
+          <div class="card-header">
+            <div class="card-title">
+              Mahsulotlar
+              <span class="badge-soft mono" id="totalCount">0 ta</span>
+            </div>
+            <div class="card-badge">Gift Market · API</div>
+          </div>
+
+          <div class="filters-row">
+            <div class="search-input-wrap">
+              <span>🔍</span>
+              <input id="searchInput" type="text" placeholder="Nomi yoki izohi bo‘yicha qidirish..." />
+            </div>
+
+            <select id="categoryFilter" class="filter-select">
+              <option value="">Barcha kategoriyalar</option>
+              <option value="category 1">category 1</option>
+              <option value="category 2">category 2</option>
+              <option value="category 3">category 3</option>
+              <option value="category 4">category 4</option>
+              <option value="category 5">category 5</option>
+              <option value="category 6">category 6</option>
+              <option value="category 7">category 7</option>
+              <option value="category 8">category 8</option>
+            </select>
+
+            <select id="saleFilter" class="filter-select">
+              <option value="">Barchasi</option>
+              <option value="true">Chegirmada</option>
+              <option value="false">Oddiy</option>
+            </select>
+
+            <div class="stat-pill" id="statInfo">
+              Yuklanmoqda...
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nomi</th>
+                  <th>Kategoriya</th>
+                  <th>Narx</th>
+                  <th>Chegirma</th>
+                  <th>Sana</th>
+                  <th style="text-align:right;">Amallar</th>
+                </tr>
+              </thead>
+              <tbody id="productsTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <div class="card-title" id="formTitle">Yangi mahsulot</div>
+            <div class="card-badge mono" style="font-size:11px;">
+              ID: <span id="currentIdLabel">Yangi</span>
+            </div>
+          </div>
+
+          <form id="productForm">
+            <input type="hidden" id="productId" />
+
+            <div class="form-grid">
+              <div class="field">
+                <label for="nameInput">Nomi</label>
+                <input id="nameInput" type="text" placeholder="Masalan, Gul buketi" required />
+              </div>
+
+              <div class="field">
+                <label for="priceInput">Narx (so‘m)</label>
+                <input id="priceInput" type="number" min="0" step="1" required />
+              </div>
+
+              <div class="field">
+                <label for="categoryInput">Kategoriya</label>
+                <select id="categoryInput" required>
+                  <option value="">Tanlang...</option>
+                  <option value="category 1">category 1</option>
+                  <option value="category 2">category 2</option>
+                  <option value="category 3">category 3</option>
+                  <option value="category 4">category 4</option>
+                  <option value="category 5">category 5</option>
+                  <option value="category 6">category 6</option>
+                  <option value="category 7">category 7</option>
+                  <option value="category 8">category 8</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="salenumberInput">Chegirma qiymati (salenumber)</label>
+                <input id="salenumberInput" type="number" min="0" step="1" />
+              </div>
+
+              <div class="field form-row-full">
+                <label for="aboutInput">Izoh / tavsif</label>
+                <textarea id="aboutInput" placeholder="Tovar haqida qisqacha ma'lumot"></textarea>
+              </div>
+
+              <div class="field form-row-full">
+                <label for="imgInput">
+                  Rasmlar (URL-lar, vergul bilan)
+                  <span class="badge-soft">img[]</span>
+                </label>
+                <input id="imgInput" type="text" placeholder="https://..., https://..." />
+              </div>
+
+              <div class="field form-row-full">
+                <label>Chegirma holati</label>
+                <div class="checkbox-row">
+                  <input id="saleInput" type="checkbox" />
+                  <span class="small">Chegirmada (sale = true)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-footer">
+              <div class="status-text" id="formStatus"></div>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <button type="button" class="btn-secondary" id="btnResetForm">
+                  Tozalash
+                </button>
+                <button type="submit" class="btn-primary">
+                  Saqlash
+                </button>
+              </div>
+            </div>
+          </form>
+        </section>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
