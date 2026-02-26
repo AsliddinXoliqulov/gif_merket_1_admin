@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Gift Market Admin · Products</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+    <div class="app-shell">
+        <div class="app-content">
+            <header class="header">
+                <div class="title-group">
+                    <div class="title-row">
+                        <div class="title-logo">G</div>
+                        <div class="title">
+                            <span class="highlight">Gift</span>
+                            <span>Market Admin</span>
+                        </div>
+                    </div>
+                    <div class="subtitle">Mahsulotlar boshqaruvi · MockAPI</div>
+                </div>
+
+                <div class="header-actions">
+                    <a class="btn-secondary" href="./orders.html">📦 Buyurtmalar</a>
+                    <div class="pill">
+                        <span class="pill-dot"></span>
+                        LIVE API
+                    </div>
+                    <button id="btnNewProduct" class="btn-primary" type="button">+ Yangi tovar</button>
+                </div>
+            </header>
+
+            <div class="layout">
+                <section class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            Mahsulotlar
+                            <span class="badge-soft mono" id="totalCount">0 ta</span>
+                        </div>
+                        <div class="card-badge">Gift Market · API</div>
+                    </div>
+
+                    <div class="filters-row">
+                        <div class="search-input-wrap">
+                            <span>🔍</span>
+                            <input id="searchInput" type="text" placeholder="ID yoki nom bo‘yicha qidirish..." />
+                        </div>
+
+                        <select id="categoryFilter" class="filter-select">
+                            <option value="">Barcha kategoriyalar</option>
+                            <option value="kepkalar">Kepkalar</option>
+                            <option value="kapishonka">Kapishonka</option>
+                            <option value="termos">Termos</option>
+                            <option value="chashka">Chashka</option>
+                            <option value="tashrif qog'oz">Tashrif qog'oz</option>
+                            <option value="paketlar">Paketlar</option>
+                            <option value="fudbolka">Fudbolka</option>
+                            <option value="bloknot">Bloknot</option>
+                        </select>
+
+                        <select id="saleFilter" class="filter-select">
+                            <option value="">Barchasi</option>
+                            <option value="true">Chegirmada</option>
+                            <option value="false">Oddiy</option>
+                        </select>
+
+                        <div class="stat-pill" id="statInfo">Yuklanmoqda...</div>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Rasm</th>
+                                    <th>Nomi</th>
+                                    <th>Kategoriya</th>
+                                    <th>Narx</th>
+                                    <th>Chegirma</th>
+                                    <th>Sotuvlar</th>
+                                    <th>Sana</th>
+                                    <th style="text-align:right;">Amallar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsTableBody"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <div class="card-header">
+                        <div class="card-title" id="formTitle">Yangi mahsulot</div>
+                        <div class="card-badge mono" style="font-size:11px;">
+                            ID: <span id="currentIdLabel">Yangi</span>
+                        </div>
+                    </div>
+
+                    <form id="productForm">
+                        <input type="hidden" id="productId" />
+
+                        <div class="form-grid">
+                            <div class="field">
+                                <label for="nameInput">Nomi</label>
+                                <input id="nameInput" type="text" placeholder="Masalan, qora bloknot" required />
+                            </div>
+
+                            <div class="field">
+                                <label for="priceInput">Narx (so‘m)</label>
+                                <input id="priceInput" type="number" min="0" step="1" required />
+                            </div>
+
+                            <div class="field">
+                                <label for="categoryInput">Kategoriya</label>
+                                <select id="categoryInput" required>
+                                    <option value="">Tanlang...</option>
+                                    <option value="kepkalar">Kepkalar</option>
+                                    <option value="kapishonka">Kapishonka</option>
+                                    <option value="termos">Termos</option>
+                                    <option value="chashka">Chashka</option>
+                                    <option value="tashrif qog'oz">Tashrif qog'oz</option>
+                                    <option value="paketlar">Paketlar</option>
+                                    <option value="fudbolka">Fudbolka</option>
+                                    <option value="boshqa">Boshqa</option>
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <label for="salenumberInput">Chegirma qiymati (salenumber)</label>
+                                <input id="salenumberInput" type="number" min="0" step="1" />
+                            </div>
+
+                            <div class="field form-row-full">
+                                <label for="aboutInput">Izoh / tavsif</label>
+                                <textarea id="aboutInput" placeholder="Tovar haqida qisqacha ma'lumot"></textarea>
+                            </div>
+
+                            <div class="field form-row-full">
+                                <label for="imgInput">Rasmlar (URL-lar, vergul bilan) <span
+                                        class="badge-soft">img[]</span></label>
+                                <input id="imgInput" type="text" placeholder="https://..., https://..." />
+                            </div>
+
+                            <div class="field form-row-full">
+                                <label>Chegirma holati</label>
+                                <div class="checkbox-row">
+                                    <input id="saleInput" type="checkbox" />
+                                    <span class="small">Chegirmada (sale = true)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-footer">
+                            <div class="status-text" id="formStatus"></div>
+                            <div style="display:flex; gap:8px; align-items:center;">
+                                <button type="button" class="btn-secondary" id="btnResetForm">Tozalash</button>
+                                <button type="submit" class="btn-primary">Saqlash</button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+
+            <div id="productModal" class="modal hidden">
+                <div class="modal-backdrop" data-close="1"></div>
+                <div class="modal-card" role="dialog" aria-modal="true">
+                    <div class="modal-header">
+                        <div class="modal-title" id="modalTitle">Mahsulot</div>
+                        <button class="btn-ghost" id="modalCloseBtn" type="button">✖</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="modal-gallery" id="modalGallery"></div>
+
+                        <div class="modal-grid">
+                            <div class="modal-field">
+                                <div class="modal-label">ID</div>
+                                <div class="modal-value mono" id="modalId"></div>
+                            </div>
+                            <div class="modal-field">
+                                <div class="modal-label">Kategoriya</div>
+                                <div class="modal-value" id="modalCategory"></div>
+                            </div>
+                            <div class="modal-field">
+                                <div class="modal-label">Narx</div>
+                                <div class="modal-value" id="modalPrice"></div>
+                            </div>
+                            <div class="modal-field">
+                                <div class="modal-label">Chegirma</div>
+                                <div class="modal-value" id="modalSale"></div>
+                            </div>
+                            <div class="modal-field">
+                                <div class="modal-label">Sotuvlar</div>
+                                <div class="modal-value" id="modalSold"></div>
+                            </div>
+                            <div class="modal-field">
+                                <div class="modal-label">Yaratilgan vaqt</div>
+                                <div class="modal-value" id="modalDateTime"></div>
+                            </div>
+                            <div class="modal-field modal-full">
+                                <div class="modal-label">Tavsif</div>
+                                <div class="modal-value" id="modalAbout"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button id="modalEditBtn" class="btn-secondary" type="button">✏️ Tahrirlash</button>
+                        <button id="modalDeleteBtn" class="btn-secondary" type="button">🗑 O‘chirish</button>
+                        <button id="modalSaleBtn" class="btn-primary" type="button">✅ Sale ON/OFF</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="./products.js"></script>
+</body>
+
+</html>
