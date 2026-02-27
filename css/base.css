@@ -94,10 +94,9 @@ a {
 }
 
 .title-logo {
-    width: 32px;
-    height: 32px;
+    width: 55px;
+    height: 55px;
     border-radius: 12px;
-    /* background: radial-gradient(circle at 0 0, #22c55e, #22c55e 35%, #16a34a 70%); */
     background: radial-gradient(circle at 0 0, #3b82f6, #0b4f8a 40%, #05233d 75%);
     display: flex;
     align-items: center;
@@ -119,7 +118,8 @@ a {
 }
 
 .title span.highlight {
-    background: linear-gradient(120deg, #16a34a, #84cc16);
+    /* background: linear-gradient(120deg, #16a34a, #84cc16); */
+    background: radial-gradient(circle at 0 0, #3b82f6, #0b4f8a 40%, #05233d 75%);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;

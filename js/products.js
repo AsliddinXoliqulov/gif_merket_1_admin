@@ -405,7 +405,7 @@ async function toggleSale(p) {
     await fetchProducts();
     if (activeModalProduct && String(activeModalProduct.id) === String(p.id)) {
       activeModalProduct.sale = !activeModalProduct.sale;
-      modalSaleBtn.textContent = activeModalProduct.sale ? "⬜ Sale OFF" : "✅ Sale ON";
+      modalSaleBtn.innerHTML = activeModalProduct.sale ? '<i style="color: green; font-size: 15px;" class="fa-solid fa-check"></i>' : '<i style="color: red; font-size: 15px;" class="fa-solid fa-power-off"></i>';
       modalSale.textContent = activeModalProduct.sale ? "Sale ON" : "Sale OFF";
     }
   } catch (err) {
@@ -422,7 +422,7 @@ function openProductModal(p) {
   modalCategory.textContent = p.category || "-";
   modalPrice.textContent = p.price ?? "-";
   modalSold.textContent = String(soldCountOf(p.id));
-  modalSale.textContent = p.sale ? "Sale ON" : "Sale OFF";
+  modalSale.textContent = p.sale ? "ON" : "OFF";
 
   const parts = parseAnyDateToParts(p.date);
   modalDateTime.textContent = parts.dateTimeText;
@@ -442,7 +442,7 @@ function openProductModal(p) {
     }
   }
 
-  modalSaleBtn.textContent = p.sale ? "⬜ Sale OFF" : "✅ Sale ON";
+  modalSaleBtn.innerHTML = p.sale ? '<i style="color: green; font-size: 15px;" class="fa-solid fa-check"></i>' : '<i style="color: red; font-size: 15px;" class="fa-solid fa-power-off"></i>';
   productModal.classList.remove("hidden");
   document.body.classList.add("modal-open");
 }

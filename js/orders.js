@@ -126,7 +126,7 @@ const prevBtn =
       <div class="order-head">
         <div>
           <div class="order-title">Buyurtma raqami -<span class="mono"> ${o.id} </span> <span class="badge-soft"> ${statusName(st)} </span></div>
-          <div class="small"><i class="fa-solid fa-phone-volume"></i> ${o.user_phone ?? "-"} · ${fmtDelivery(Boolean(o.deliver))}</div>
+          <a class="small"><i class="fa-solid fa-phone-volume"></i> &nbsp; ${o.user_phone ?? "-"}  &nbsp;· &nbsp; ${fmtDelivery(Boolean(o.deliver))}</a>
         </div>
         <div class="order-right">
           <div class="small">Jami: <span class="price">${o.total_price ?? "-"}</span></div>

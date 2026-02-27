@@ -19,10 +19,9 @@
             <header class="header">
                 <div class="title-group">
                     <div class="title-row">
-                        <div class="title-logo">P</div>
+                         <div class="title-logo"><img src="./image/hero.svg" alt=""></div>
                         <div class="title">
-                            <span class="highlight">Print</span>
-                            <span>City</span>
+                            <span class="highlight">Print City</span>
                         </div>
                     </div>
                 </div>
@@ -31,7 +30,7 @@
                     <a class="btn-secondary" href="./orders.html">
                         <i class="fa-solid fa-cart-arrow-down"></i> Buyurtmalar <span id="push_massage"></span>
                     </a>
-                    <button id="btnNewProduct" class="btn-primary" type="button">+ Yangi tovar</button>
+                    <button id="btnNewProduct" class="btn-primary" type="button"><i class="fa-regular fa-calendar-plus"></i> Yangi tovar</button>
                 </div>
             </header>
 
@@ -77,11 +76,10 @@
                                     <th>ID</th>
                                     <th>Rasm</th>
                                     <th>Nomi</th>
-                                    <th>Kategoriya</th>
                                     <th>Narx</th>
-                                    <th>Sale</th>
-                                    <!-- <th>Sotuvlar</th> -->
+                                    <th>Kategoriya</th>
                                     <th>Sana</th>
+                                    <th>Sale</th>
                                     <th style="text-align:right;">Amallar</th>
                                 </tr>
                             </thead>
@@ -97,7 +95,7 @@
                 <div class="modal-card" role="dialog" aria-modal="true">
                     <div class="modal-header">
                         <div class="modal-title" id="modalTitle">Mahsulot</div>
-                        <button class="map_close_button" id="modalCloseBtn" type="button">✖</button>
+                        <i style="font-size: 20px; color: #154167;" id="modalCloseBtn" class="fa-solid fa-circle-xmark"></i>
                     </div>
 
                     <div class="modal-body">
@@ -136,20 +134,19 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button id="modalEditBtn" class="btn-secondary" type="button"></button>
-                        <button id="modalDeleteBtn" class="btn-secondary" type="button"></button>
+                        <button id="modalEditBtn" class="btn-secondary" type="button"><i style="color: blue; font-size: 15px;" class="fa-regular fa-pen-to-square"></i></button>
+                        <button id="modalDeleteBtn" class="btn-secondary" type="button"><i style="color: red; font-size: 15px;" class="fa-regular fa-trash-can"></i></i></button>
                         <button id="modalSaleBtn" class="btn-primary" type="button"></button>
                     </div>
                 </div>
             </div>
 
-            <!-- ✅ Product FORM modal (Yangi qo'shildi) -->
             <div id="productFormModal" class="modal hidden">
                 <div class="modal-backdrop" data-close="1"></div>
                 <div class="modal-card" role="dialog" aria-modal="true">
                     <div class="modal-header">
                         <div class="modal-title" id="formModalTitle">Yangi tovar</div>
-                        <button class="map_close_button" id="formModalCloseBtn" type="button">✖</button>
+                        <i style="font-size: 20px; color: #154167;" id="formModalCloseBtn" class="fa-solid fa-circle-xmark"></i>
                     </div>
 
                     <div class="modal-body">
