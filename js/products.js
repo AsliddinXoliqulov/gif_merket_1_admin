@@ -205,7 +205,7 @@ tdName.innerHTML = `
       const btnToggle = document.createElement("button");
       btnToggle.type = "button";
       btnToggle.className = "btn-ghost";
-      btnToggle.innerHTML = p.sale ? '<i style="color: green;" class="fa-regular fa-circle-check"></i>' : '<i style="color: red;" class="fa-solid fa-power-off"></i>';
+      btnToggle.innerHTML = p.sale ? '<i style="color: green; font-size: 15px;" class="fa-regular fa-circle-check"></i>' : '<i style="color: red; font-size: 15px;" class="fa-solid fa-power-off"></i>';
       btnToggle.onclick = (e) => {
         e.stopPropagation();
         toggleSale(p);
@@ -215,7 +215,7 @@ tdName.innerHTML = `
       const btnEdit = document.createElement("button");
       btnEdit.type = "button";
       btnEdit.className = "btn-ghost";
-      btnEdit.innerHTML = '<i style="color: blue;" class="fa-regular fa-pen-to-square"></i>';
+      btnEdit.innerHTML = '<i style="color: blue; font-size: 15px;" class="fa-regular fa-pen-to-square"></i>';
       btnEdit.onclick = (e) => {
         e.stopPropagation();
         openFormModalForEdit(p);
@@ -225,7 +225,7 @@ tdName.innerHTML = `
       const btnDelete = document.createElement("button");
       btnDelete.type = "button";
       btnDelete.className = "btn-ghost";
-      btnDelete.innerHTML = '<i style="color: red;" class="fa-regular fa-trash-can"></i>';
+      btnDelete.innerHTML = '<i style="color: red; font-size: 15px;" class="fa-regular fa-trash-can"></i>';
       btnDelete.onclick = (e) => {
         e.stopPropagation();
         deleteProduct(p.id);

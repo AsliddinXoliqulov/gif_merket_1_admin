@@ -1,6 +1,8 @@
 /* ========================= */
-/* Products (Mobile-first)   */
+/* PRODUCT CSS (Light theme) */
 /* ========================= */
+
+/* Products (Mobile-first) */
 
 .filters-row {
     display: flex;
@@ -21,11 +23,11 @@
     padding: 10px 12px 10px 30px;
     border-radius: var(--radius-pill);
     border: 1px solid var(--input-border);
-    background: rgba(15, 23, 42, .95);
+    background: rgba(255, 255, 255, .98);
     color: var(--text);
     font-size: 13px;
     outline: none;
-    box-shadow: inset 0 0 0 1px rgba(15, 23, 42, .6);
+    box-shadow: inset 0 0 0 1px rgba(241, 245, 249, .9);
 }
 
 .search-input-wrap span {
@@ -45,7 +47,7 @@ select.filter-select {
     padding: 10px 12px;
     border-radius: var(--radius-pill);
     border: 1px solid var(--input-border);
-    background: rgba(15, 23, 42, .96);
+    background: rgba(255, 255, 255, .98);
     color: var(--text-soft);
     font-size: 12px;
     outline: none;
@@ -58,8 +60,8 @@ select.filter-select {
     color: var(--accent);
     padding: 8px 12px;
     border-radius: var(--radius-pill);
-    border: 1px solid rgba(34, 197, 94, .35);
-    background: rgba(22, 163, 74, .12);
+    border: 1px solid rgba(22, 163, 74, .25);
+    background: rgba(22, 163, 74, .08);
     text-align: center;
 }
 
@@ -67,9 +69,9 @@ select.filter-select {
 
 .table-wrap {
     border-radius: 16px;
-    border: 1px solid rgba(31, 41, 55, .95);
+    border: 1px solid rgba(203, 213, 225, .95);
     overflow: auto;
-    background: radial-gradient(circle at top left, #020617, #020617 55%, #020617 100%);
+    background: radial-gradient(circle at top left, #ffffff, #f8fafc 55%, #f1f5f9 100%);
     -webkit-overflow-scrolling: touch;
 }
 
@@ -81,7 +83,7 @@ table {
 }
 
 thead {
-    background: linear-gradient(90deg, rgba(15, 23, 42, .8), rgba(15, 23, 42, .98));
+    background: linear-gradient(90deg, rgba(241, 245, 249, .9), rgba(248, 250, 252, .98));
 }
 
 thead th {
@@ -92,26 +94,26 @@ thead th {
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: .14em;
-    border-bottom: 1px solid rgba(31, 41, 55, 1);
+    border-bottom: 1px solid rgba(203, 213, 225, 1);
     white-space: nowrap;
 }
 
 tbody tr {
-    border-bottom: 1px solid rgba(17, 24, 39, .85);
+    border-bottom: 1px solid rgba(226, 232, 240, .95);
     transition: background .1s ease;
 }
 
 tbody tr:nth-child(2n) {
-    background: rgba(15, 23, 42, .6);
+    background: rgba(241, 245, 249, .7);
 }
 
 tbody tr:hover {
-    background: rgba(30, 64, 175, .1);
+    background: rgba(59, 130, 246, .10);
 }
 
 td {
     padding: 10px 10px;
-    color: #e5e7eb;
+    color: #0f172a;
     vertical-align: middle;
     white-space: nowrap;
 }
@@ -134,8 +136,8 @@ td.small {
     height: 46px;
     border-radius: 12px;
     object-fit: cover;
-    border: 1px solid rgba(148, 163, 184, .25);
-    box-shadow: 0 10px 22px rgba(0, 0, 0, .35);
+    border: 1px solid rgba(148, 163, 184, .30);
+    box-shadow: 0 10px 22px rgba(15, 23, 42, .10);
     display: block;
 }
 
@@ -143,8 +145,8 @@ td.small {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba(148, 163, 184, .6);
-    background: rgba(15, 23, 42, .9);
+    color: rgba(71, 85, 105, .65);
+    background: rgba(248, 250, 252, .98);
 }
 
 .tag-pill {
@@ -154,29 +156,29 @@ td.small {
     padding: 5px 10px;
     border-radius: 999px;
     font-size: 11px;
-    border: 1px solid rgba(148, 163, 184, .4);
+    border: 1px solid rgba(148, 163, 184, .55);
     color: var(--text-soft);
-    background: rgba(15, 23, 42, .9);
+    background: rgba(255, 255, 255, .98);
 }
 
 .tag-pill.sale-true {
-    border-color: rgba(34, 197, 94, .9);
-    color: #bbf7d0;
+    border-color: rgba(22, 163, 74, 0.666);
+    color: #166534;
     background: var(--accent-soft);
 }
 
 .tag-pill.sale-false {
-    border-color: rgba(148, 163, 184, .6);
-    background: rgba(15, 23, 42, 1);
+    border-color: rgba(148, 163, 184, .55);
+    background: rgba(255, 255, 255, 1);
 }
 
 .chip-id {
     font-size: 11px;
     padding: 4px 9px;
     border-radius: 999px;
-    border: 1px solid rgba(148, 163, 184, .4);
+    border: 1px solid rgba(148, 163, 184, .55);
     color: var(--text-soft);
-    background: rgba(15, 23, 42, 1);
+    background: rgba(255, 255, 255, 1);
 }
 
 /* Actions */
@@ -190,10 +192,10 @@ td.small {
 
 .btn-ghost {
     border-radius: 999px;
-    border: 1px solid rgba(31, 41, 55, 1);
+    border: 1px solid rgba(203, 213, 225, 1);
     padding: 6px 10px;
     font-size: 11px;
-    background: rgba(15, 23, 42, .95);
+    background: rgba(255, 255, 255, .98);
     color: var(--text-soft);
     cursor: pointer;
     display: inline-flex;
@@ -204,19 +206,19 @@ td.small {
 }
 
 .btn-ghost:hover {
-    background: rgba(37, 99, 235, .18);
-    border-color: rgba(59, 130, 246, .8);
+    background: rgba(59, 130, 246, .10);
+    border-color: rgba(59, 130, 246, .45);
     transform: translateY(-.5px);
 }
 
 .btn-ghost.danger {
-    border-color: rgba(239, 68, 68, .6);
-    color: #fecaca;
+    border-color: rgba(220, 38, 38, .45);
+    color: #7f1d1d;
 }
 
 .btn-ghost.danger:hover {
     background: var(--danger-soft);
-    border-color: rgba(248, 113, 113, .9);
+    border-color: rgba(220, 38, 38, .65);
 }
 
 /* Modal gallery (product info modal) */
@@ -234,14 +236,14 @@ td.small {
     height: 100px;
     border-radius: 14px;
     object-fit: cover;
-    border: 1px solid rgba(148, 163, 184, .18);
+    border: 1px solid rgba(148, 163, 184, .22);
     flex: 0 0 auto;
 }
 
 .gallery-empty {
-    color: rgba(148, 163, 184, .75);
+    color: rgba(71, 85, 105, .8);
     padding: 12px;
-    border: 1px dashed rgba(148, 163, 184, .25);
+    border: 1px dashed rgba(148, 163, 184, .45);
     border-radius: 14px;
 }
 
@@ -261,7 +263,7 @@ td.small {
     height: 18px;
     padding: 0 6px;
     border-radius: 999px;
-    background: red;
+    background: #dc2626;
     color: #fff;
     font-size: 11px;
     line-height: 1;
@@ -270,7 +272,7 @@ td.small {
 /* close button */
 
 .map_close_button {
-    background: red;
+    background: #dc2626;
     border: none;
     color: #fff;
     width: 34px;
@@ -279,17 +281,15 @@ td.small {
     cursor: pointer;
 }
 
-/* ========================= */
-/* Responsive upgrades       */
-/* ========================= */
+/* Responsive upgrades */
 
-@media (min-width:520px) {
+@media (min-width: 520px) {
     .search-input-wrap {
-        flex: 1 1 260px
+        flex: 1 1 260px;
     }
 
     select.filter-select {
-        flex: 0 1 180px
+        flex: 0 1 180px;
     }
 
     .stat-pill {
@@ -297,11 +297,11 @@ td.small {
         flex: 0 1 auto;
         width: auto;
         text-align: left;
-        padding: 6px 12px
+        padding: 6px 12px;
     }
 }
 
-@media (min-width:881px) {
+@media (min-width: 881px) {
     .filters-row {
         align-items: center;
     }
