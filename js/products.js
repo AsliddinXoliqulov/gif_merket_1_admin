@@ -13,18 +13,6 @@ const searchInput = document.getElementById("searchInput");
 const categoryFilter = document.getElementById("categoryFilter");
 const saleFilter = document.getElementById("saleFilter");
 
-const productForm = document.getElementById("productForm");
-const productIdInput = document.getElementById("productId");
-const nameInput = document.getElementById("nameInput");
-const priceInput = document.getElementById("priceInput");
-const categoryInput = document.getElementById("categoryInput");
-const salenumberInput = document.getElementById("salenumberInput");
-const aboutInput = document.getElementById("aboutInput");
-const imgInput = document.getElementById("imgInput");
-const saleInput = document.getElementById("saleInput");
-const formStatus = document.getElementById("formStatus");
-const formTitle = document.getElementById("formTitle");
-const currentIdLabel = document.getElementById("currentIdLabel");
 const btnNewProduct = document.getElementById("btnNewProduct");
 const btnResetForm = document.getElementById("btnResetForm");
 
@@ -42,6 +30,19 @@ const modalAbout = document.getElementById("modalAbout");
 const modalEditBtn = document.getElementById("modalEditBtn");
 const modalDeleteBtn = document.getElementById("modalDeleteBtn");
 const modalSaleBtn = document.getElementById("modalSaleBtn");
+
+const productFormModal = document.getElementById("productFormModal");
+const formModalTitle = document.getElementById("formModalTitle");
+const formModalCloseBtn = document.getElementById("formModalCloseBtn");
+
+const productForm = document.getElementById("productForm");
+const productIdInput = document.getElementById("productId");
+const nameInput = document.getElementById("nameInput");
+const priceInput = document.getElementById("priceInput");
+const categoryInput = document.getElementById("categoryInput");
+const aboutInput = document.getElementById("aboutInput");
+const imgInput = document.getElementById("imgInput");
+const formStatus = document.getElementById("formStatus");
 
 function pad2(n) {
   const s = String(n);
@@ -103,6 +104,17 @@ function showStatus(message, type = "normal") {
     : '<span class="ok">' + message + "</span>";
 }
 
+function safeFirstImg(p) {
+  if (Array.isArray(p.img) && p.img.length) return p.img[0];
+  if (typeof p.img === "string" && p.img.trim()) return p.img.trim();
+  return "";
+}
+
+function soldCountOf(productId) {
+  const k = String(productId);
+  return soldByProductId.get(k) || 0;
+}
+
 function applyFilters() {
   const q = searchInput.value.trim().toLowerCase();
   const cat = categoryFilter.value;
@@ -120,17 +132,6 @@ function applyFilters() {
     }
     return true;
   });
-}
-
-function safeFirstImg(p) {
-  if (Array.isArray(p.img) && p.img.length) return p.img[0];
-  if (typeof p.img === "string" && p.img.trim()) return p.img.trim();
-  return "";
-}
-
-function soldCountOf(productId) {
-  const k = String(productId);
-  return soldByProductId.get(k) || 0;
 }
 
 function renderTable() {
@@ -156,46 +157,44 @@ function renderTable() {
       });
 
       const tdId = document.createElement("td");
-      tdId.innerHTML = '<span class="chip-id">#' + p.id + "</span>";
+      tdId.innerHTML = '<span class="chip-id">' + p.id + "</span>";
       tr.appendChild(tdId);
 
       const tdImg = document.createElement("td");
       tdImg.className = "img-cell";
       const imgUrl = safeFirstImg(p);
-      tdImg.innerHTML = imgUrl
-        ? `<img class="thumb" src="${imgUrl}" alt="">`
-        : `<div class="thumb ph">—</div>`;
+      tdImg.innerHTML = imgUrl ? `<img class="thumb" src="${imgUrl}" alt="">` : `<div class="thumb ph">—</div>`;
       tdImg.addEventListener("click", () => openProductModal(p));
       tr.appendChild(tdImg);
 
       const tdName = document.createElement("td");
-      const aboutShort = (p.about || "").length > 36 ? p.about.slice(0, 36) + "..." : (p.about || "");
-      tdName.innerHTML = `<div>${p.name || "-"}</div><div class="small">${aboutShort || "&nbsp;"}</div>`;
+      const nameShort = cutText(p.name || "-", 30);
+const aboutShort = cutText(p.about || "", 40);
+
+tdName.innerHTML = `
+  <div style="padding-bottom: 10px;">${nameShort}</div>
+  <div class="small">${aboutShort || "&nbsp;"}</div>
+`;
       tr.appendChild(tdName);
+      
+      const tdPrice = document.createElement("td");
+      tdPrice.innerHTML = '<span class="price">' + (p.price ?? "-") + "</span>";
+      tr.appendChild(tdPrice);
 
       const tdCategory = document.createElement("td");
       tdCategory.innerHTML = '<span class="badge-soft">' + (p.category || "-") + "</span>";
       tr.appendChild(tdCategory);
 
-      const tdPrice = document.createElement("td");
-      tdPrice.innerHTML = '<span class="price">' + (p.price ?? "-") + "</span>";
-      tr.appendChild(tdPrice);
-
-      const tdSale = document.createElement("td");
-      const saleClass = p.sale ? "sale-true" : "sale-false";
-      const saleText = p.sale ? "Chegirmada" : "Oddiy";
-      const saleNumber = p.salenumber != null ? " · " + p.salenumber : "";
-      tdSale.innerHTML = `<span class="tag-pill ${saleClass}">${p.sale ? "●" : "○"} ${saleText}${saleNumber}</span>`;
-      tr.appendChild(tdSale);
-
-      const tdSold = document.createElement("td");
-      tdSold.innerHTML = `<span class="badge-soft mono">${soldCountOf(p.id)}</span>`;
-      tr.appendChild(tdSold);
-
       const tdDate = document.createElement("td");
       tdDate.className = "small";
       tdDate.textContent = parseAnyDateToParts(p.date).dateText;
       tr.appendChild(tdDate);
+
+      const tdSale = document.createElement("td");
+      const saleClass = p.sale ? "sale-true" : "sale-false";
+      const saleText = p.sale ? "Sale ON" : "Sale OFF";
+      tdSale.innerHTML = `<span class="tag-pill ${saleClass}">${p.sale ? "●" : "○"} ${saleText}</span>`;
+      tr.appendChild(tdSale);
 
       const tdActions = document.createElement("td");
       tdActions.style.textAlign = "right";
@@ -203,30 +202,30 @@ function renderTable() {
       const actionsDiv = document.createElement("div");
       actionsDiv.className = "actions";
 
-      const btnEdit = document.createElement("button");
-      btnEdit.type = "button";
-      btnEdit.className = "btn-ghost";
-      btnEdit.textContent = "✏️ Tahrirlash";
-      btnEdit.onclick = (e) => {
-        e.stopPropagation();
-        fillFormForEdit(p);
-      };
-      actionsDiv.appendChild(btnEdit);
-
       const btnToggle = document.createElement("button");
       btnToggle.type = "button";
       btnToggle.className = "btn-ghost";
-      btnToggle.textContent = p.sale ? "⬜ Sale OFF" : "✅ Sale ON";
+      btnToggle.innerHTML = p.sale ? '<i style="color: green;" class="fa-regular fa-circle-check"></i>' : '<i style="color: red;" class="fa-solid fa-power-off"></i>';
       btnToggle.onclick = (e) => {
         e.stopPropagation();
         toggleSale(p);
       };
       actionsDiv.appendChild(btnToggle);
 
+      const btnEdit = document.createElement("button");
+      btnEdit.type = "button";
+      btnEdit.className = "btn-ghost";
+      btnEdit.innerHTML = '<i style="color: blue;" class="fa-regular fa-pen-to-square"></i>';
+      btnEdit.onclick = (e) => {
+        e.stopPropagation();
+        openFormModalForEdit(p);
+      };
+      actionsDiv.appendChild(btnEdit);
+
       const btnDelete = document.createElement("button");
       btnDelete.type = "button";
-      btnDelete.className = "btn-ghost danger";
-      btnDelete.textContent = "🗑 O‘chirish";
+      btnDelete.className = "btn-ghost";
+      btnDelete.innerHTML = '<i style="color: red;" class="fa-regular fa-trash-can"></i>';
       btnDelete.onclick = (e) => {
         e.stopPropagation();
         deleteProduct(p.id);
@@ -242,7 +241,7 @@ function renderTable() {
 
   totalCountEl.textContent = products.length + " ta";
   const saleCount = products.filter(p => p.sale).length;
-  statInfoEl.textContent = saleCount + " ta chegirmada · " + products.length + " ta jami";
+  // statInfoEl.textContent = saleCount + " ta Sale ON · " + products.length + " ta jami";
 }
 
 function resetForm() {
@@ -250,29 +249,37 @@ function resetForm() {
   nameInput.value = "";
   priceInput.value = "";
   categoryInput.value = "";
-  salenumberInput.value = "";
   aboutInput.value = "";
   imgInput.value = "";
-  saleInput.checked = false;
-  formTitle.textContent = "Yangi mahsulot";
-  currentIdLabel.textContent = "Yangi";
   showStatus("");
 }
 
-function fillFormForEdit(p) {
+function openFormModalNew() {
+  resetForm();
+  formModalTitle.textContent = "Yangi tovar";
+  productFormModal.classList.remove("hidden");
+  document.body.classList.add("modal-open");
+  setTimeout(() => nameInput.focus(), 30);
+}
+
+function openFormModalForEdit(p) {
   productIdInput.value = p.id;
   nameInput.value = p.name || "";
   priceInput.value = p.price ?? "";
   categoryInput.value = p.category || "";
-  salenumberInput.value = p.salenumber ?? "";
   aboutInput.value = p.about || "";
   imgInput.value = Array.isArray(p.img) ? p.img.join(", ") : (p.img || "");
-  saleInput.checked = Boolean(p.sale);
-
-  formTitle.textContent = "Tahrirlash";
-  currentIdLabel.textContent = p.id;
   showStatus("Tahrirlash rejimi.");
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  formModalTitle.innerHTML = '<i class="fa-regular fa-pen-to-square"></i> · ' + p.id;
+
+  productFormModal.classList.remove("hidden");
+  document.body.classList.add("modal-open");
+  setTimeout(() => nameInput.focus(), 30);
+}
+
+function closeFormModal() {
+  productFormModal.classList.add("hidden");
+  document.body.classList.remove("modal-open");
 }
 
 async function fetchSoldCounts() {
@@ -293,21 +300,34 @@ async function fetchSoldCounts() {
         soldByProductId.set(id, (soldByProductId.get(id) || 0) + add);
       }
     }
-  } catch {}
-}
-
-async function fetchProducts() {
-  statInfoEl.textContent = "Yuklanmoqda...";
-  try {
-    await fetchSoldCounts();
-    const res = await fetch(API_PRODUCTS);
-    if (!res.ok) throw new Error("API xato: " + res.status);
-    products = await res.json();
-    renderTable();
-    statInfoEl.textContent = "Yangilandi · " + new Date().toLocaleTimeString("uz-UZ", { hour: "2-digit", minute: "2-digit" });
   } catch (err) {
     console.error(err);
-    statInfoEl.textContent = "Ma'lumotni yuklashda xatolik";
+  }
+}
+  
+async function fetchProducts() {
+  statInfoEl.textContent = "Yangilanmoqda...";
+
+  try {
+    await fetchSoldCounts();
+
+    const res = await fetch(API_PRODUCTS);
+    if (!res.ok) throw new Error(res.status);
+
+    products = await res.json();
+    renderTable();
+
+    // 🔥 yangilangan vaqt
+    const time = new Date().toLocaleTimeString("uz-UZ", {
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+
+    statInfoEl.textContent = "Yangilandi · " + time;
+
+  } catch (err) {
+    console.error(err);
+    statInfoEl.textContent = "Yuklashda xatolik";
   }
 }
 
@@ -323,16 +343,14 @@ async function saveProduct(event) {
     .filter(Boolean);
 
   const priceVal = priceInput.value === "" ? null : Number(priceInput.value);
-  const saleNumVal = salenumberInput.value === "" ? null : Number(salenumberInput.value);
 
   const payload = {
     name: nameInput.value.trim(),
     about: aboutInput.value.trim(),
     price: priceVal,
-    sale: saleInput.checked,
-    salenumber: saleNumVal,
     category: categoryInput.value,
-    img: imgArr
+    img: imgArr,
+    sale: true
   };
 
   if (!id) payload.date = nowLocalDateTimeText();
@@ -348,12 +366,18 @@ async function saveProduct(event) {
 
     showStatus("Muvaffaqiyatli saqlandi ✅", "normal");
     await fetchProducts();
-    if (!id) resetForm();
+    closeFormModal();
   } catch (err) {
     console.error(err);
     showStatus("Saqlashda xatolik: " + err.message, "error");
   }
 }
+
+function cutText(s, max) {
+  const t = String(s ?? "");
+  return t.length > max ? t.slice(0, max) + "..." : t;
+}
+
 
 async function deleteProduct(id) {
   if (!confirm("Rostdan ham o‘chirmoqchimisiz? (ID: " + id + ")")) return;
@@ -361,7 +385,6 @@ async function deleteProduct(id) {
   try {
     const res = await fetch(API_PRODUCTS + "/" + id, { method: "DELETE" });
     if (!res.ok) throw new Error("O‘chirish xatosi: " + res.status);
-    if (productIdInput.value === String(id)) resetForm();
     closeProductModal();
     await fetchProducts();
     alert("O‘chirildi.");
@@ -380,6 +403,11 @@ async function toggleSale(p) {
     });
     if (!res.ok) throw new Error("Sale holatini o‘zgartirish xatosi");
     await fetchProducts();
+    if (activeModalProduct && String(activeModalProduct.id) === String(p.id)) {
+      activeModalProduct.sale = !activeModalProduct.sale;
+      modalSaleBtn.textContent = activeModalProduct.sale ? "⬜ Sale OFF" : "✅ Sale ON";
+      modalSale.textContent = activeModalProduct.sale ? "Sale ON" : "Sale OFF";
+    }
   } catch (err) {
     console.error(err);
     alert("Xatolik: " + err.message);
@@ -390,13 +418,11 @@ function openProductModal(p) {
   activeModalProduct = p;
 
   modalTitle.textContent = p.name || "Mahsulot";
-  modalId.textContent = "#" + p.id;
+  modalId.textContent = "" + p.id;
   modalCategory.textContent = p.category || "-";
   modalPrice.textContent = p.price ?? "-";
   modalSold.textContent = String(soldCountOf(p.id));
-
-  const saleText = p.sale ? `Chegirmada${p.salenumber != null ? " · " + p.salenumber : ""}` : "Oddiy";
-  modalSale.textContent = saleText;
+  modalSale.textContent = p.sale ? "Sale ON" : "Sale OFF";
 
   const parts = parseAnyDateToParts(p.date);
   modalDateTime.textContent = parts.dateTimeText;
@@ -429,15 +455,16 @@ function closeProductModal() {
 
 productModal.addEventListener("click", (e) => {
   const t = e.target;
-  if (t && (t.dataset && t.dataset.close === "1")) closeProductModal();
+  if (t && t.dataset && t.dataset.close === "1") closeProductModal();
 });
 
 modalCloseBtn.addEventListener("click", closeProductModal);
 
 modalEditBtn.addEventListener("click", () => {
   if (!activeModalProduct) return;
-  fillFormForEdit(activeModalProduct);
+  const p = activeModalProduct;
   closeProductModal();
+  openFormModalForEdit(p);
 });
 
 modalDeleteBtn.addEventListener("click", () => {
@@ -450,12 +477,15 @@ modalSaleBtn.addEventListener("click", () => {
   toggleSale(activeModalProduct);
 });
 
-btnNewProduct.addEventListener("click", () => {
-  resetForm();
-  nameInput.focus();
+productFormModal.addEventListener("click", (e) => {
+  const t = e.target;
+  if (t && t.dataset && t.dataset.close === "1") closeFormModal();
 });
 
-btnResetForm.addEventListener("click", () => resetForm());
+formModalCloseBtn.addEventListener("click", closeFormModal);
+
+btnNewProduct.addEventListener("click", openFormModalNew);
+btnResetForm.addEventListener("click", resetForm);
 
 productForm.addEventListener("submit", saveProduct);
 searchInput.addEventListener("input", renderTable);
@@ -463,7 +493,37 @@ categoryFilter.addEventListener("change", renderTable);
 saleFilter.addEventListener("change", renderTable);
 
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && !productModal.classList.contains("hidden")) closeProductModal();
+  if (e.key !== "Escape") return;
+  if (!productFormModal.classList.contains("hidden")) closeFormModal();
+  else if (!productModal.classList.contains("hidden")) closeProductModal();
 });
 
 fetchProducts();
+
+/* push massage */
+async function fetchOrdersCounts() {
+  try {
+    const res = await fetch(API_ORDERS);
+    if (!res.ok) throw new Error(res.status);
+
+    const orders = await res.json();
+    const c1 = (Array.isArray(orders) ? orders : []).filter(o => Number(o?.status ?? 1) === 1).length;
+
+    const push = document.getElementById("push_massage");
+    if (c1 <= 0) {
+      push.innerHTML = "";
+      push.style.display = "none";
+      return;
+    }
+
+    push.style.display = "inline-block";
+    push.innerHTML = `<span class="pushmassage">${c1}</span>`;
+  } catch (e) {
+    console.error("Counts error:", e);
+  }
+}
+
+
+
+document.addEventListener("DOMContentLoaded", fetchOrdersCounts);
+statInfoEl.addEventListener("click", fetchProducts);

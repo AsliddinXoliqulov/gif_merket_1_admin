@@ -3,10 +3,15 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Gift Market Admin · Orders</title>
+    <title>Admin · Orders</title>
+    <link rel="shortcut icon" href="./image/favicon.svg" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/orders.css">
 </head>
 
 <body>
@@ -15,30 +20,40 @@
             <header class="header">
                 <div class="title-group">
                     <div class="title-row">
-                        <div class="title-logo">G</div>
+                        <div class="title-logo">P</div>
                         <div class="title">
-                            <span class="highlight">Gift</span>
-                            <span>Market Orders</span>
+                            <span class="highlight">Print</span>
+                            <span>City</span>
                         </div>
                     </div>
-                    <div class="subtitle">Buyurtmalar · status 1/2/3 · MockAPI</div>
                 </div>
 
                 <div class="header-actions">
-                    <a class="btn-secondary" href="./products.html">🛒 Mahsulotlar</a>
-                    <div class="pill"><span class="pill-dot"></span>LIVE API</div>
-                    <button id="btnReloadOrders" class="btn-primary" type="button">🔄 Yangilash</button>
+                    <a class="btn-secondary" href="./products.html"><i class="fa-solid fa-shop"></i> Mahsulotlar</a>
+                    <button id="btnReloadOrders" class="btn-primary" type="button"><i class="fa-solid fa-arrows-rotate"></i> Yangilash</button>
                 </div>
             </header>
 
             <section class="card">
                 <div class="orders-top">
                     <div class="tabs">
-                        <button class="tab-btn active" data-tab="1" type="button">🆕 Yangi</button>
-                        <button class="tab-btn" data-tab="2" type="button">🚚 Jarayonda</button>
-                        <button class="tab-btn" data-tab="3" type="button">✅ Yakunlangan</button>
+                        <div style="position: relative;">
+                            <button class="tab-btn active" data-tab="1" type="button"> Yangi</button>
+                            <span class="order_count" id="new_count"></span>
+                        </div>
+                        <div style="position: relative;">
+                            <button class="tab-btn" data-tab="2" type="button"><i style="color: rgb(255, 195, 0);" class="fa-solid fa-gears"></i> &nbsp; Jarayonda</button>
+                            <span class="order_count" id="delivering_count"></span>
+                        </div>
+                        <div style="position: relative;">
+                            <button class="tab-btn" data-tab="3" type="button"><i style="color: rgb(78, 255, 47);"
+                                    class="fa-solid fa-envelope-circle-check"></i> &nbsp; Yakunlangan</button>
+                             <span class="order_count" id="completed_count"></span>       
+                        </div>
                     </div>
-                    <div class="stat-pill" id="ordersInfo">Yuklanmoqda...</div>
+                    <div class="orders-stats">
+                        <div class="" id="ordersInfo">Yuklanmoqda...</div>
+                    </div>
                 </div>
 
                 <div id="ordersList" class="orders-list"></div>
@@ -48,8 +63,8 @@
                 <div class="modal-backdrop" data-close="1"></div>
                 <div class="modal-card map-card" role="dialog" aria-modal="true">
                     <div class="modal-header">
-                        <div class="modal-title">📍 Joylashuv</div>
-                        <button class="btn-ghost" id="mapCloseBtn" type="button">✖</button>
+                        <div class="modal-title"><i class="fa-solid fa-location-arrow"></i>&nbsp; Joylashuv</div>
+                        <i style="font-size: 20px;" id="mapCloseBtn" class="fa-solid fa-circle-xmark"></i>
                     </div>
                     <div class="modal-body">
                         <div id="leafletMap" class="map-box"></div>
@@ -62,7 +77,7 @@
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="./orders.js"></script>
+    <script type="module" src="./js/orders.js"></script>
 </body>
 
 </html>

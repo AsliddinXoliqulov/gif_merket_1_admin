@@ -1,0 +1,50 @@
+<svg
+  width="50"
+  height="50"
+  viewBox="0 0 200 200"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <!-- Tashqi romb -->
+  <rect
+    x="55"
+    y="55"
+    width="110"
+    height="110"
+    fill="white"
+    stroke="black"
+    stroke-width="13"
+    transform="rotate(45 100 100)"
+  />
+  <rect
+    x="35"
+    y="35"
+    width="120"
+    height="120"
+    fill="white"
+    stroke="black"
+    stroke-width="10"
+    transform="rotate(45 100 100)"
+  />
+
+  <!-- Ichki romb -->
+  <rect
+    x="65"
+    y="65"
+    width="60"
+    height="60"
+    fill="none"
+    stroke="black"
+    stroke-width="20"
+    transform="rotate(45 100 100)"
+  />
+
+  <!-- Markaziy kvadrat -->
+  <rect
+    x="87"
+    y="87"
+    width="16"
+    height="16"
+    fill="black"
+    transform="rotate(45 100 100)"
+  />
+</svg>

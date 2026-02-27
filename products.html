@@ -3,9 +3,14 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Gift Market Admin · Products</title>
+    <title>Admin · Products</title>
+    <link rel="shortcut icon" href="./image/favicon.svg" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="css/products.css">
+        <link rel="stylesheet" href="css/base.css">
 </head>
 
 <body>
@@ -14,21 +19,18 @@
             <header class="header">
                 <div class="title-group">
                     <div class="title-row">
-                        <div class="title-logo">G</div>
+                        <div class="title-logo">P</div>
                         <div class="title">
-                            <span class="highlight">Gift</span>
-                            <span>Market Admin</span>
+                            <span class="highlight">Print</span>
+                            <span>City</span>
                         </div>
                     </div>
-                    <div class="subtitle">Mahsulotlar boshqaruvi · MockAPI</div>
                 </div>
 
                 <div class="header-actions">
-                    <a class="btn-secondary" href="./orders.html">📦 Buyurtmalar</a>
-                    <div class="pill">
-                        <span class="pill-dot"></span>
-                        LIVE API
-                    </div>
+                    <a class="btn-secondary" href="./orders.html">
+                        <i class="fa-solid fa-cart-arrow-down"></i> Buyurtmalar <span id="push_massage"></span>
+                    </a>
                     <button id="btnNewProduct" class="btn-primary" type="button">+ Yangi tovar</button>
                 </div>
             </header>
@@ -40,12 +42,11 @@
                             Mahsulotlar
                             <span class="badge-soft mono" id="totalCount">0 ta</span>
                         </div>
-                        <div class="card-badge">Gift Market · API</div>
+                        <div class="stat-pill" id="statInfo">Yuklanmoqda...</div>
                     </div>
 
                     <div class="filters-row">
                         <div class="search-input-wrap">
-                            <span>🔍</span>
                             <input id="searchInput" type="text" placeholder="ID yoki nom bo‘yicha qidirish..." />
                         </div>
 
@@ -63,11 +64,10 @@
 
                         <select id="saleFilter" class="filter-select">
                             <option value="">Barchasi</option>
-                            <option value="true">Chegirmada</option>
-                            <option value="false">Oddiy</option>
+                            <option value="true">Sale ON</option>
+                            <option value="false">Sale OFF</option>
                         </select>
 
-                        <div class="stat-pill" id="statInfo">Yuklanmoqda...</div>
                     </div>
 
                     <div class="table-wrap">
@@ -79,8 +79,8 @@
                                     <th>Nomi</th>
                                     <th>Kategoriya</th>
                                     <th>Narx</th>
-                                    <th>Chegirma</th>
-                                    <th>Sotuvlar</th>
+                                    <th>Sale</th>
+                                    <!-- <th>Sotuvlar</th> -->
                                     <th>Sana</th>
                                     <th style="text-align:right;">Amallar</th>
                                 </tr>
@@ -89,86 +89,15 @@
                         </table>
                     </div>
                 </section>
-
-                <section class="card">
-                    <div class="card-header">
-                        <div class="card-title" id="formTitle">Yangi mahsulot</div>
-                        <div class="card-badge mono" style="font-size:11px;">
-                            ID: <span id="currentIdLabel">Yangi</span>
-                        </div>
-                    </div>
-
-                    <form id="productForm">
-                        <input type="hidden" id="productId" />
-
-                        <div class="form-grid">
-                            <div class="field">
-                                <label for="nameInput">Nomi</label>
-                                <input id="nameInput" type="text" placeholder="Masalan, qora bloknot" required />
-                            </div>
-
-                            <div class="field">
-                                <label for="priceInput">Narx (so‘m)</label>
-                                <input id="priceInput" type="number" min="0" step="1" required />
-                            </div>
-
-                            <div class="field">
-                                <label for="categoryInput">Kategoriya</label>
-                                <select id="categoryInput" required>
-                                    <option value="">Tanlang...</option>
-                                    <option value="kepkalar">Kepkalar</option>
-                                    <option value="kapishonka">Kapishonka</option>
-                                    <option value="termos">Termos</option>
-                                    <option value="chashka">Chashka</option>
-                                    <option value="tashrif qog'oz">Tashrif qog'oz</option>
-                                    <option value="paketlar">Paketlar</option>
-                                    <option value="fudbolka">Fudbolka</option>
-                                    <option value="boshqa">Boshqa</option>
-                                </select>
-                            </div>
-
-                            <div class="field">
-                                <label for="salenumberInput">Chegirma qiymati (salenumber)</label>
-                                <input id="salenumberInput" type="number" min="0" step="1" />
-                            </div>
-
-                            <div class="field form-row-full">
-                                <label for="aboutInput">Izoh / tavsif</label>
-                                <textarea id="aboutInput" placeholder="Tovar haqida qisqacha ma'lumot"></textarea>
-                            </div>
-
-                            <div class="field form-row-full">
-                                <label for="imgInput">Rasmlar (URL-lar, vergul bilan) <span
-                                        class="badge-soft">img[]</span></label>
-                                <input id="imgInput" type="text" placeholder="https://..., https://..." />
-                            </div>
-
-                            <div class="field form-row-full">
-                                <label>Chegirma holati</label>
-                                <div class="checkbox-row">
-                                    <input id="saleInput" type="checkbox" />
-                                    <span class="small">Chegirmada (sale = true)</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-footer">
-                            <div class="status-text" id="formStatus"></div>
-                            <div style="display:flex; gap:8px; align-items:center;">
-                                <button type="button" class="btn-secondary" id="btnResetForm">Tozalash</button>
-                                <button type="submit" class="btn-primary">Saqlash</button>
-                            </div>
-                        </div>
-                    </form>
-                </section>
             </div>
 
+            <!-- Product info modal (sizniki qoladi) -->
             <div id="productModal" class="modal hidden">
                 <div class="modal-backdrop" data-close="1"></div>
                 <div class="modal-card" role="dialog" aria-modal="true">
                     <div class="modal-header">
                         <div class="modal-title" id="modalTitle">Mahsulot</div>
-                        <button class="btn-ghost" id="modalCloseBtn" type="button">✖</button>
+                        <button class="map_close_button" id="modalCloseBtn" type="button">✖</button>
                     </div>
 
                     <div class="modal-body">
@@ -188,7 +117,7 @@
                                 <div class="modal-value" id="modalPrice"></div>
                             </div>
                             <div class="modal-field">
-                                <div class="modal-label">Chegirma</div>
+                                <div class="modal-label">Sale</div>
                                 <div class="modal-value" id="modalSale"></div>
                             </div>
                             <div class="modal-field">
@@ -207,17 +136,81 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button id="modalEditBtn" class="btn-secondary" type="button">✏️ Tahrirlash</button>
-                        <button id="modalDeleteBtn" class="btn-secondary" type="button">🗑 O‘chirish</button>
-                        <button id="modalSaleBtn" class="btn-primary" type="button">✅ Sale ON/OFF</button>
+                        <button id="modalEditBtn" class="btn-secondary" type="button"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button id="modalDeleteBtn" class="btn-secondary" type="button"></button>
+                        <button id="modalSaleBtn" class="btn-primary" type="button"></button>
                     </div>
+                </div>
+            </div>
+
+            <!-- ✅ Product FORM modal (Yangi qo'shildi) -->
+            <div id="productFormModal" class="modal hidden">
+                <div class="modal-backdrop" data-close="1"></div>
+                <div class="modal-card" role="dialog" aria-modal="true">
+                    <div class="modal-header">
+                        <div class="modal-title" id="formModalTitle">Yangi tovar</div>
+                        <button class="map_close_button" id="formModalCloseBtn" type="button">✖</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form id="productForm">
+                            <input type="hidden" id="productId" />
+
+                            <div class="form-grid">
+                                <div class="field">
+                                    <label for="nameInput">Nomi</label>
+                                    <input id="nameInput" type="text" placeholder="Masalan, qora bloknot" required />
+                                </div>
+
+                                <div class="field">
+                                    <label for="priceInput">Narx (so‘m)</label>
+                                    <input id="priceInput" type="number" min="0" step="1" required />
+                                </div>
+
+                                <div class="field">
+                                    <label for="categoryInput">Kategoriya</label>
+                                    <select id="categoryInput" required>
+                                        <option value="">Tanlang...</option>
+                                        <option value="kepkalar">Kepkalar</option>
+                                        <option value="kapishonka">Kapishonka</option>
+                                        <option value="termos">Termos</option>
+                                        <option value="chashka">Chashka</option>
+                                        <option value="tashrif qog'oz">Tashrif qog'oz</option>
+                                        <option value="paketlar">Paketlar</option>
+                                        <option value="fudbolka">Fudbolka</option>
+                                        <option value="boshqa">Boshqa</option>
+                                    </select>
+                                </div>
+
+                                <div class="field form-row-full">
+                                    <label for="aboutInput">Izoh / tavsif</label>
+                                    <textarea id="aboutInput" placeholder="Tovar haqida qisqacha ma'lumot"></textarea>
+                                </div>
+
+                                <div class="field form-row-full">
+                                    <label for="imgInput">Rasmlar (URL-lar, vergul bilan) <span
+                                            class="badge-soft">img[]</span></label>
+                                    <input id="imgInput" type="text" placeholder="https://..., https://..." />
+                                </div>
+                            </div>
+
+                            <div class="form-footer">
+                                <div class="status-text" id="formStatus"></div>
+                                <div style="display:flex; gap:8px; align-items:center;">
+                                    <button type="button" class="btn-secondary" id="btnResetForm">Tozalash</button>
+                                    <button type="submit" class="btn-primary">Saqlash</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
             </div>
 
         </div>
     </div>
 
-    <script src="./products.js"></script>
+    <script type="module" src="./js/products.js"></script>
 </body>
 
 </html>
